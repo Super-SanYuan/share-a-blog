@@ -1,24 +1,7 @@
 # share-a-blog
 
-## Project setup
-```
-yarn install
-```
+一个 vue 练手项目
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## 技术栈
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    vue vue-cli vue-router vuex axios
