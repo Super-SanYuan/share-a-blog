@@ -23,9 +23,9 @@ service.interceptors.request.use(config => {
 // 响应拦截
 service.interceptors.response.use(response => {
   const httpStatus = Number(response.status) || 200 // http状态码
-  // const resStatus = response.data.status // 后端定义的接口状态
-  let resMessage = response.data.msg // 后端定义的请求结果文字
-  if (httpStatus !== 200) {
+  const resStatus = response.data.status // 后端定义的接口状态
+  let resMessage // 后端定义的请求结果文字
+  if (httpStatus !== 200 || resStatus !== 'ok') {
     // http 状态码错误处理
     switch (httpStatus) {
       case 401:
