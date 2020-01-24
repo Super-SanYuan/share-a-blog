@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import { getHome } from "@/api/home";
+import { editBlog } from "@/api/blog";
 export default {
   mounted() {
-    getHome().then(res => {
+    editBlog({ blogId: 1 }).then(res => {
       console.log(res);
     });
   }
