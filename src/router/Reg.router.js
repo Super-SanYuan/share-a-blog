@@ -1,5 +1,5 @@
 // 注册
-const Reg = () => import(/* webpackChunkName: "Reg" */ "@/views/User")
+const Reg = () => import(/* webpackChunkName: "Reg" */ "@/views/Reg")
 export default {
   name: "Reg",
   path: "/reg/",

@@ -1,15 +1,23 @@
 <template>
   <header :class="{ login: isLogin, 'no-login': !isLogin }">
     <template v-if="!isLogin">
-      <h1>Future can be expected</h1>
+      <router-link to="/">
+        <h1>Future can be expected</h1>
+      </router-link>
       <p>My Blog</p>
       <div class="btn">
-        <el-button>立即登录</el-button>
-        <el-button>注册账号</el-button>
+        <router-link to="/login">
+          <el-button>立即登录</el-button>
+        </router-link>
+        <router-link to="/reg">
+          <el-button>注册账号</el-button>
+        </router-link>
       </div>
     </template>
     <template v-else>
-      <h1>Future can be expected</h1>
+      <router-link to="/">
+        <h1>Future can be expected</h1>
+      </router-link>
       <div>
         <i class="el-icon-edit"></i>
         <el-avatar
@@ -31,6 +39,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+a {
+  color: #fff;
+}
 header.no-login {
   padding: 2% 0;
   background-color: #008e2d;
@@ -41,6 +52,9 @@ header.no-login {
   color: #fff;
   p {
     margin: 1% 0 3%;
+  }
+  .btn > a {
+    margin: 0 10px;
   }
 }
 header.login {
