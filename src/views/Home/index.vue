@@ -35,6 +35,12 @@
         <p>设计模式原则 单一性原则 开放封闭原则</p>
       </router-link>
     </section>
+    <el-pagination
+      style="text-align: center;"
+      layout="prev, pager, next"
+      :total="1000"
+    >
+    </el-pagination>
   </div>
 </template>
 

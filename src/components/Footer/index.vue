@@ -6,9 +6,10 @@
 
 <style scoped>
 .footer {
-  padding: 4% 0;
+  padding: 10px 0;
   background-color: #d1d1d1;
   display: flex;
+  color: #666;
   justify-content: center;
   align-items: center;
   font-size: 14px;
