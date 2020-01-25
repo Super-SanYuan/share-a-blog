@@ -33,6 +33,11 @@ body,
 #app {
   height: 100%;
 }
+
+a {
+  text-decoration: none;
+  color: #333;
+}
 #app {
   display: grid;
   /* 行 */
