@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import user from './user'
 
 Vue.use(Vuex)
 
-let model = {
-
+let modules = {
+  user
 }
 
+
 export default new Vuex.Store({
-  model
+  modules
 })
 
