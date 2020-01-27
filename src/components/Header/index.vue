@@ -19,21 +19,46 @@
         <h1>Future can be expected</h1>
       </router-link>
       <div>
-        <i class="el-icon-edit"></i>
-        <el-avatar
-          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-        ></el-avatar>
+        <i class="el-icon-edit" @click.stop="goToCreate" />
+        <el-dropdown>
+          <el-avatar
+            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          ></el-avatar>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <el-button type="text" @click.stop="goToMine">我的</el-button>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <el-button type="text" @click.stop="logout">登出</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </template>
   </header>
 </template>
 
 <script>
+import Vuex from "vuex";
+import { logout } from "@/api/auth";
 export default {
-  data() {
-    return {
-      isLogin: false // 是否登录
-    };
+  // props: ["isLogin"],
+  computed: {
+    ...Vuex.mapState(["isLogin"])
+  },
+  methods: {
+    goToMine() {
+      this.$router.push("/mine");
+    },
+    goToCreate() {
+      this.$router.push("/create");
+    },
+    async logout() {
+      let res = await logout();
+      if (res.status === "ok") {
+        this.$router.replace("/login");
+      }
+    }
   }
 };
 </script>
