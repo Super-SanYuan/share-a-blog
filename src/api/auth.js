@@ -5,7 +5,7 @@ import request from '@/utils/request'
  * @param {*} username 用户名, 长度1到15个字符，只能是字母数字下划线中文
  * @param {*} password 密码, 长度6到16个任意字符
  */
-export const register = (username, password) => request({
+export const register = ({ username, password }) => request({
   method: 'post',
   url: '/auth/register',
   data: {
@@ -18,9 +18,9 @@ export const register = (username, password) => request({
  * @param {*} username 用户名, 长度1到15个字符，只能是字母数字下划线中文
  * @param {*} password 密码, 长度6到16个任意字符
  */
-export const login = (username, password) => request({
+export const login = ({ username, password }) => request({
   method: 'post',
-  url: '/auth/register',
+  url: '/auth/login',
   data: {
     username, password
   }
