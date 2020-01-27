@@ -1,9 +1,16 @@
-const store = {
-  isLogin: false
-}
+import actions from './actions'
+import getters from './getters'
+import mutations from './mutations'
 
+const state = {
+  isLogin: false,
+  userInfo: {}
+}
 
 export default {
   namespaced: true, // 命名空间
-  store
+  state,
+  actions,
+  getters,
+  mutations
 }

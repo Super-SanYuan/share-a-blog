@@ -9,7 +9,7 @@
     >
       <el-form-item label="用户名" prop="username">
         <el-input
-          type="password"
+          type="text"
           v-model="ruleForm.username"
           autocomplete="off"
           placeholder="用户名"
@@ -34,7 +34,7 @@
   </section>
 </template>
 <script>
-import { login } from "@/api/auth";
+import { mapActions } from "vuex";
 export default {
   data() {
     /**
@@ -69,17 +69,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["user/login"]),
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          // 登录
-          let { status, msg } = await login(this.ruleForm);
-          if (status === "ok") {
-            this.$message.success(msg);
-            this.$router.push("/");
-          } else {
-            this.$message.warning(msg);
-          }
+          this["user/login"](this.ruleForm);
         } else {
           // 验证失败
           return false;
