@@ -7,18 +7,18 @@
     label-width="80px"
     class="reg-form"
   >
-    <el-form-item label="密码" prop="pass">
+    <el-form-item label="用户名" prop="username">
       <el-input
-        type="password"
-        v-model="ruleForm.pass"
+        type="text"
+        v-model="ruleForm.username"
         autocomplete="off"
         placeholder="用户名"
       ></el-input>
     </el-form-item>
-    <el-form-item label="确认密码" prop="checkPass">
+    <el-form-item label="密码" prop="password">
       <el-input
         type="password"
-        v-model="ruleForm.checkPass"
+        v-model="ruleForm.password"
         autocomplete="off"
         placeholder="密码"
       ></el-input>
@@ -32,45 +32,54 @@
   </el-form>
 </template>
 <script>
+import { register } from "@/api/auth";
 export default {
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
+    /**
+     * username : 用户名, 长度1到15个字符，只能是字母数字下划线中文
+     * password : 密码, 长度6到16个任意字符
+     */
+    var validateUserName = (rule, value, callback) => {
+      // 验证账号
+      if (value.length < 6) {
+        callback(new Error("密码必须大于6位"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
+    var validatePassWord = (rule, value, callback) => {
+      // 验证密码
       if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("长度6到16个任意字符"));
       } else {
         callback();
       }
     };
     return {
       ruleForm: {
-        pass: "",
-        checkPass: ""
+        username: "",
+        password: ""
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+        username: [{ validator: validateUserName, trigger: "blur" }],
+        password: [{ validator: validatePassWord, trigger: "blur" }]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async valid => {
         if (valid) {
-          alert("submit!");
+          // 登录
+          let { status, msg } = await register(this.ruleForm);
+          if (status === "ok") {
+            this.$message.success(msg);
+            this.$routes.push("/");
+          } else {
+            this.$message.warning(msg);
+          }
         } else {
-          console.log("error submit!!");
+          // 验证失败
           return false;
         }
       });
