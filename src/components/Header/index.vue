@@ -59,7 +59,11 @@ export default {
       this.$router.push("/create");
     },
     logout() {
-      this["user/logout"]();
+      this["user/logout"]().then(res => {
+        if (res.status === "ok") {
+          this.$router.replace("/login");
+        }
+      });
     }
   }
 };
