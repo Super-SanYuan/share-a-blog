@@ -21,9 +21,7 @@
       <div>
         <i class="el-icon-edit" @click.stop="goToCreate" />
         <el-dropdown>
-          <el-avatar
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          ></el-avatar>
+          <el-avatar :src="userInfo.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <el-button type="text" @click.stop="goToMine">我的</el-button>
@@ -39,25 +37,29 @@
 </template>
 
 <script>
-import Vuex from "vuex";
-import { logout } from "@/api/auth";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  // props: ["isLogin"],
+  created() {
+    this["user/checkLogin"]();
+  },
+  mounted() {
+    this["user/checkLogin"]();
+  },
   computed: {
-    ...Vuex.mapState(["isLogin"])
+    ...mapGetters("user", ["isLogin", "userInfo"])
   },
   methods: {
+    ...mapActions(["user/checkLogin", "user/logout"]),
     goToMine() {
       this.$router.push("/mine");
     },
     goToCreate() {
       this.$router.push("/create");
     },
-    async logout() {
-      let res = await logout();
-      if (res.status === "ok") {
-        this.$router.replace("/login");
-      }
+    logout() {
+      this["user/logout"]().then(res => {
+        console.log("登出页面返回值", res);
+      });
     }
   }
 };

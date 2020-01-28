@@ -53,7 +53,6 @@ service.interceptors.response.use(response => {
   }
   return response.data
 }, error => {
-  console.log(3);
   return new Promise.reject(new Error(error))
 })
 
