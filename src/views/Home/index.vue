@@ -1,51 +1,75 @@
 <template>
   <div class="home">
     <section class="blog-item-container">
-      <router-link to="/" class="blog-item">
-        <figure class="avatar">
-          <img
-            src="https://blog-server.hunger-valley.com/avatar/63.jpg"
-            alt=""
-          />
-          <figcaption>滴滴</figcaption>
-        </figure>
-        <h3>设计模式 <span>Ginger</span></h3>
-        <p>设计模式原则 单一性原则 开放封闭原则</p>
-      </router-link>
-      <router-link to="/" class="blog-item">
-        <figure class="avatar">
-          <img
-            src="https://blog-server.hunger-valley.com/avatar/63.jpg"
-            alt=""
-          />
-          <figcaption>滴滴</figcaption>
-        </figure>
-        <h3>设计模式 <span>Ginger</span></h3>
-        <p>设计模式原则 单一性原则 开放封闭原则</p>
-      </router-link>
-      <router-link to="/" class="blog-item">
-        <figure class="avatar">
-          <img
-            src="https://blog-server.hunger-valley.com/avatar/63.jpg"
-            alt=""
-          />
-          <figcaption>滴滴</figcaption>
-        </figure>
-        <h3>设计模式 <span>Ginger</span></h3>
-        <p>设计模式原则 单一性原则 开放封闭原则</p>
-      </router-link>
+      <template v-for="item in blogs">
+        <router-link
+          :to="`/detail/${item.id}`"
+          class="blog-item"
+          :key="item.id"
+        >
+          <figure class="avatar">
+            <img :src="item.user.avatar" />
+            <figcaption>{{ item.user.username }}</figcaption>
+          </figure>
+          <h3>
+            {{ item.title }} <span>{{ item.updatedAt | getDateDiff }}</span>
+          </h3>
+          <p>{{ item.description }}</p>
+        </router-link>
+      </template>
     </section>
     <el-pagination
       style="text-align: center;"
       layout="prev, pager, next"
-      :total="1000"
+      :page-size="10"
+      :total="total"
+      :current-page="page"
+      :page-count="totalPage"
+      @current-change="onPage"
     >
     </el-pagination>
   </div>
 </template>
 
 <script>
-export default {};
+import { getHomeBlogs } from "@/api/blog";
+export default {
+  /**
+   * 进入页面获取博客列表
+   * 点击翻页请求下一个数据
+   */
+  data() {
+    return {
+      blogs: [],
+      totalPage: 0, // 总页数
+      total: 0, // 总条数
+      page: 1 // 当前页码
+    };
+  },
+  async created() {
+    this.page = parseInt(this.$route.query.page) || 1;
+    this.getBlogs(this.page);
+  },
+  methods: {
+    async getBlogs(page) {
+      let res = await getHomeBlogs({ page });
+      this.blogs = res.data;
+      this.total = res.total;
+      this.totalPage = res.totalPage;
+      this.$router
+        .replace({
+          path: "/",
+          query: {
+            page: res.page
+          }
+        })
+        .catch(() => {});
+    },
+    onPage(page) {
+      this.getBlogs(page);
+    }
+  }
+};
 </script>
 
 <style scoped lang="less">
