@@ -19,12 +19,17 @@
         <h1>Future can be expected</h1>
       </router-link>
       <div>
-        <i class="el-icon-edit" @click.stop="goToCreate" />
+        <router-link :to="{ name: 'create', params: { userId: userInfo.id } }">
+          <i class="el-icon-edit" />
+        </router-link>
         <el-dropdown>
           <el-avatar :src="userInfo.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <el-button type="text" @click.stop="goToMine">我的</el-button>
+              <router-link
+                :to="{ name: 'mine', params: { userId: userInfo.id } }"
+                ><el-button type="text">我的</el-button></router-link
+              >
             </el-dropdown-item>
             <el-dropdown-item>
               <el-button type="text" @click.stop="logout">登出</el-button>
@@ -41,6 +46,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   created() {
     this["user/checkLogin"]();
+    console.log("userInfo", this.userInfo);
   },
   mounted() {
     this["user/checkLogin"]();
@@ -50,16 +56,11 @@ export default {
   },
   methods: {
     ...mapActions(["user/checkLogin", "user/logout"]),
-    goToMine() {
-      this.$router.push("/mine");
-    },
     goToCreate() {
       this.$router.push("/create");
     },
     logout() {
-      this["user/logout"]().then(res => {
-        console.log("登出页面返回值", res);
-      });
+      this["user/logout"]();
     }
   }
 };
