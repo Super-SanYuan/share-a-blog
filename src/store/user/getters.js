@@ -1,4 +1,4 @@
 export default {
-  getIsLogin: (state) => state.isLogin,
-  getUserInfo: (state) => state.userInfo,
+  isLogin: (state) => state.isLogin,
+  userInfo: (state) => state.userInfo,
 }

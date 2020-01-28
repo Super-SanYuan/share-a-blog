@@ -73,7 +73,12 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          this["user/login"](this.ruleForm);
+          this["user/login"](this.ruleForm).then(res => {
+            if (res.status === "ok") {
+              this.$message.success(res.msg);
+              this.$router.push("/");
+            }
+          });
         } else {
           // 验证失败
           return false;
