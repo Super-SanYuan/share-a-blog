@@ -4,3 +4,9 @@
  */
 
 import './components'
+import Vue from 'vue'
+import filters from '@/filters'
+
+Object.keys(filters).forEach(name => {
+  Vue.filter(name, filters[name])
+})
