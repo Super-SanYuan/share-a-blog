@@ -17,10 +17,9 @@ export default {
   },
   // 登出
   async logout ({ commit }) {
-    console.log('登出');
-    return await auth.logout().then(res => {
-      commit('setLogin', res.isLogin)
-    })
+    let res = await auth.logout()
+    commit('setLogin', { isLogin: false })
+    return res
   },
   // 是否登录
   async checkLogin ({ commit, state }) {
