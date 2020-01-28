@@ -75,7 +75,7 @@ export default {
           this["user/register"](this.ruleForm).then(res => {
             if (res.status === "ok") {
               this.$message.success(res.msg);
-              this.$router.push("/");
+              this.$router.push("/login");
             } else {
               this.$message.warning(res.msg);
             }
