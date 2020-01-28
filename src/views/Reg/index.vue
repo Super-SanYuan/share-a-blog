@@ -32,7 +32,7 @@
   </el-form>
 </template>
 <script>
-import { register } from "@/api/auth";
+import { mapActions } from "vuex";
 export default {
   data() {
     /**
@@ -67,17 +67,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["user/register"]),
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          // 登录
-          let { status, msg } = await register(this.ruleForm);
-          if (status === "ok") {
-            this.$message.success(msg);
-            this.$routes.push("/");
-          } else {
-            this.$message.warning(msg);
-          }
+          // 注册
+          this["user/register"](this.ruleForm).then(res => {
+            if (res.status === "ok") {
+              this.$message.success(res.msg);
+              this.$router.push("/");
+            } else {
+              this.$message.warning(res.msg);
+            }
+          });
         } else {
           // 验证失败
           return false;

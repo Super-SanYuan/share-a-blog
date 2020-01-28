@@ -46,7 +46,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   created() {
     this["user/checkLogin"]();
-    console.log("userInfo", this.userInfo);
   },
   mounted() {
     this["user/checkLogin"]();

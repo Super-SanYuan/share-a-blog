@@ -10,10 +10,12 @@ export default {
   },
   // 注册
   async register ({ commit }, { username, password }) {
-    return await auth.register({ username, password }).then(res => {
+    let res = await auth.register({ username, password })
+    if (res.status === 'ok') {
       commit('setUser', res.data)
       commit('setLogin', { isLogin: true })
-    })
+    }
+    return res
   },
   // 登出
   async logout ({ commit }) {
