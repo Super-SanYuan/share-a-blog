@@ -28,6 +28,16 @@ const getDateDiff = (date) => {
   return res;
 }
 
+
+const getFullYear = (date) => new Date(date).getFullYear()
+
+const getMonth = (date) => new Date(date).getMonth() + 1
+
+const getDate = (date) => new Date(date).getDate()
+
 export default {
-  getDateDiff
+  getDateDiff,
+  getFullYear,
+  getMonth,
+  getDate
 }
