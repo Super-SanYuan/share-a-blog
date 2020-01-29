@@ -3,5 +3,6 @@ const CreateBlog = () => import(/* webpackChunkName: "Create" */ "@/views/Create
 export default {
   name: 'create',
   path: '/create/',
+  meta: { requireAuth: true },
   component: CreateBlog
 }
