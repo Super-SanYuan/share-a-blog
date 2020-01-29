@@ -25,11 +25,12 @@ export default {
   },
   // 是否登录
   async checkLogin ({ commit, state }) {
+
     if (state.isLogin) return true
     let res = await auth.getInfo()
     commit('setUser', res.data)
     if (!res.isLogin) return false
-    commit('setLogin', { isLogin: false })
+    commit('setLogin', { isLogin: true })
   }
 
 }
