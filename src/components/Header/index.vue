@@ -23,7 +23,7 @@
           <i class="el-icon-edit" />
         </router-link>
         <el-dropdown>
-          <el-avatar :src="userInfo.avatar"></el-avatar>
+          <el-avatar shape="circle" :src="userInfo.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <router-link

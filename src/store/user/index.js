@@ -4,7 +4,7 @@ import mutations from './mutations'
 
 const state = {
   isLogin: false,
-  userInfo: {}
+  userInfo: null
 }
 
 export default {
