@@ -29,7 +29,7 @@
         id="content"
       ></el-input>
     </p>
-    <p>
+    <section>
       <label for="atIndex">展示到首页</label>
       <el-switch
         v-model="blogInfo.atIndex"
@@ -38,7 +38,7 @@
         inactive-color="#ff4949"
       >
       </el-switch>
-    </p>
+    </section>
     <el-button type="primary" @click="create">确定</el-button>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
       createBlog(this.blogInfo).then(res => {
         if (res.status === "ok") {
           this.$message.success(res.msg);
-          this.$router.push(`/blog/${res.data.id}`);
+          this.$router.push(`/mine`);
         }
       });
     }
@@ -82,6 +82,14 @@ export default {
     flex-direction: column;
     > label {
       margin: 20px 0;
+    }
+  }
+  > section {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    label {
+      margin-right: 10px;
     }
   }
 }
