@@ -47,9 +47,6 @@ export default {
   created() {
     this["user/checkLogin"]();
   },
-  mounted() {
-    this["user/checkLogin"]();
-  },
   computed: {
     ...mapGetters("user", ["isLogin", "userInfo"])
   },
