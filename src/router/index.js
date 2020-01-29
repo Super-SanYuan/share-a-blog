@@ -4,7 +4,7 @@ import VueRouter from 'vue-router' // 引入路由插件
 import routeOptions from './router.options' // 引入封装的路由数组数据
 
 Vue.use(VueRouter) // 安装插件
-
+window.store = store
 // 构造路由实例
 const router = new VueRouter({
   // options
@@ -17,14 +17,16 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {
-    if (!store.state.user.isLogin) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      next()
-    }
+    store.dispatch('user/checkLogin').then(isLogin => {
+      if (!isLogin) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    })
   } else {
     next() // 确保一定要调用 next()
   }
