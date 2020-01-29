@@ -26,6 +26,15 @@ export const getHomeBlogs = ({ page = 1 } = { page: 1 }) => {
 }
 
 /**
+ * 获取指定用户首页博客数据
+ * @param {Number} userId 用户id
+ * @param {Number} page 页码
+ */
+export const getMineBlogs = ({ userId, page }) => {
+  return getBlogs({ page, userId })
+}
+
+/**
  * 获取博客详情
  * @param {*} blogId 博客id
  */
