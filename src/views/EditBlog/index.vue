@@ -1,6 +1,6 @@
 <template>
-  <div class="create">
-    <h1>创建文章</h1>
+  <div class="edit">
+    <h1>编辑文章</h1>
     <p class="title">
       <label for="title">文章标题</label>
       <el-input
@@ -39,15 +39,16 @@
       >
       </el-switch>
     </section>
-    <el-button type="primary" @click="create">确定</el-button>
+    <el-button type="primary" @click="submit">确定</el-button>
   </div>
 </template>
 
 <script>
-import { createBlog } from "@/api/blog";
+import { getBlogDetail, editBlog } from "@/api/blog";
 export default {
   data() {
     return {
+      blogId: this.$route.params.id,
       blogInfo: {
         title: "",
         content: "",
@@ -56,21 +57,30 @@ export default {
       }
     };
   },
+  created() {
+    this.getBlogInfo(this.blogId);
+  },
   methods: {
-    create() {
-      createBlog(this.blogInfo).then(res => {
-        if (res.status === "ok") {
-          this.$message.success(res.msg);
-          this.$router.push(`/mine`);
-        }
-      });
+    async getBlogInfo(blogId) {
+      let res = await getBlogDetail(blogId);
+      this.blogInfo.title = res.data.title;
+      this.blogInfo.description = res.data.description;
+      this.blogInfo.content = res.data.content;
+      this.blogInfo.atIndex = res.data.atIndex;
+    },
+    async submit() {
+      let res = await editBlog(this.blogId, this.blogInfo);
+      if (res.status === "ok") {
+        this.$message.success(res.msg);
+        this.$router.push(`/detail/${this.blogId}`);
+      }
     }
   }
 };
 </script>
 
 <style scoped lang="less">
-.create {
+.edit {
   display: felx;
   flex-direction: column;
   align-items: center;
