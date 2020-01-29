@@ -61,7 +61,7 @@ export const createBlog = ({ title, content, description }) => request({
  * 修改制定博客内容
  * @param {*} param0 标题 内容 描述说明 是否展示到首页
  */
-export const editBlog = ({ blogId, title, content, description, atIndex }) => request({
+export const editBlog = (blogId, { title, content, description, atIndex }) => request({
   method: 'patch',
   url: `/blog/${blogId}`,
   data: {
