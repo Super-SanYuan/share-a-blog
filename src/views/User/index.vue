@@ -63,6 +63,8 @@ export default {
       });
       this.userInfo = res.data[0].user;
       this.blogs = res.data;
+      this.total = res.total;
+      this.totalPage = res.totalPage;
     },
     onPage(page) {
       this.getBlogs(page);

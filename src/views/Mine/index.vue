@@ -75,6 +75,8 @@ export default {
         page: this.page
       });
       this.blogs = res.data;
+      this.total = res.total;
+      this.totalPage = res.totalPage;
     },
     onPage(page) {
       this.getBlogs(page);
